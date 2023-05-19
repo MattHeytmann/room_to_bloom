@@ -1,0 +1,609 @@
+/* :root {
+
+} */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.top_menu {
+    width: 100vw;
+    height: 60px;
+    box-shadow: inset 0px 0px 10px 0px #000000, 0px 0px 30px 0px #000000;
+    background-color: #696760;
+    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.top_menu > div {
+    width: fit-content;
+    padding: 5px;
+    max-width: 300px;
+    height: 50px;
+    box-shadow: inset 0px 0px 10px 0px #000000, 0px 0px 30px 0px #000000;
+    background-color: #41403c;
+    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.top_menu > div > div {
+    height: 90%;
+    width: fit-content;
+    padding: 5px;
+    box-shadow: inset 0px 0px 10px 0px #000000, 0px 0px 30px 0px #000000;
+    background-color: #696760;
+    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0px 1px;
+    min-width: 10vw;
+}
+
+.top_menu > div > div > * {
+    font-size: 24px;
+    text-align: center;
+    color: #dddddd;
+}
+
+.table, .restaurant {
+    width: 100vw;
+    height: 50vh;
+}
+
+.table {
+    background-color: #c88233;
+    background-image: url("https://www.transparenttextures.com/patterns/dark-wood.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restaurant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    box-shadow: inset 0px 0px 50px 0px #000000;
+    background-color: #d6d2ba;
+    background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.desk {
+    width: 100vw;
+    height: 50px;
+    box-shadow: inset 0px 0px 20px 0px #000000;
+    background-color: #ffaa00;
+    background-image: url("https://www.transparenttextures.com/patterns/dark-wood.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.customers {
+    height: calc(40vh - 110px);
+    width: 100vw;
+    display: flex;
+    align-items: end;
+    padding: 0px 10px;
+}
+
+.customer {
+    width: calc((100vw - 20px) / 5);
+    height: 25vh;
+    background-color: rgba(192, 255, 255, 0.291);
+    display: flex;
+    align-items: end;
+}
+
+.human {
+    width: 50%;
+    max-height: 20vh;
+    aspect-ratio: 1/2;
+    background-color: blanchedalmond;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.demand {
+    width: 50%;
+    max-height: calc(30vh - 100px);
+    height: fit-content;
+    margin: 5px;
+    margin-bottom: 50%;
+    background-color: rgba(124, 124, 124, 0.588);
+    padding: -5px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.food {
+    width: 50%;
+    aspect-ratio: 1/1;
+    margin: 5px;
+    background-size: 110%;
+    background-position: 50%;
+}
+
+.ingredient {
+    position: relative;
+    width: 95%;
+    height: fit-content;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+}
+
+.ingredient > img {
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+.ingredient1 {
+    background-image: url('/static/img/rice_pile.png');
+}
+.ingredient2 {
+    background-image: url('/static/img/kelp_pile.png');
+}
+.ingredient3 {
+    background-image: url('/static/img/fish_pile.png');
+}
+.ingredient4 {
+    background-image: url('/static/img/bamboo_pile.png');
+}
+.ingredient5 {
+    background-image: url('/static/img/vegetable_pile.jpg');
+}
+.ingredient6 {
+    background-image: url('/static/img/caviar_pile.png');
+}
+.ingredient7 {
+    background-image: url('/static/img/meat_pile.jpg');
+}
+.ingredient8 {
+    background-image: url('/static/img/crab_pile.jpg');
+}
+.ingredient9 {
+    background-image: url('/static/img/catfish_pile.jpg');
+}
+
+.ing1 {
+    grid-area: ing1;
+}
+.ing2 {
+    grid-area: ing2;
+}
+.ing3 {
+    grid-area: ing3;
+}
+.ing4 {
+    grid-area: ing4;
+}
+.ing5 {
+    grid-area: ing5;
+}
+.ing6 {
+    grid-area: ing6;
+}
+.ing7 {
+    grid-area: ing7;
+}
+.ing8 {
+    grid-area: ing8;
+}
+.ing9 {
+    grid-area: ing9;
+}
+
+.ingredients {
+    width: 30vw;
+    max-width: 500px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    background-color: #667175;
+    background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    border-radius: 1rem;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "ing1 ing2 ing3"
+    "ing4 ing5 ing6"
+    "ing7 ing8 ing9";
+}
+
+.curent_ingredient {
+    background-size: 100% 100%;
+    background-position: center;
+    height: 50%;
+    aspect-ratio: 1/1;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingredient_amount {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 5px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.left, .right {
+    display: flex;
+}
+
+.ing_c1 {
+    grid-area: ing_c1;
+}
+.ing_c2 {
+    grid-area: ing_c2;
+}
+.ing_c3 {
+    grid-area: ing_c3;
+}
+.ing_c4 {
+    grid-area: ing_c4;
+}
+.ing_c5 {
+    grid-area: ing_c5;
+}
+.ing_c6 {
+    grid-area: ing_c6;
+}
+
+.preparation {
+    width: 20vw;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    box-shadow: 0px 0px 15px 0px black;
+    background-color: #bf5450;
+background-image: url("https://www.transparenttextures.com/patterns/black-linen.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "ing_c1 ing_c2 ing_c3"
+    "ing_c4 ing_c5 ing_c6"
+}
+
+.knife {
+    width: 10vw;
+    max-width: 200px;
+    aspect-ratio: 1/3;
+    background-image: url('/static/img/knife.png');
+    background-size: 100% 100%;
+    margin: 10px;
+}
+
+.recepie {
+    width: 20vw;
+    max-width: 300px;
+    aspect-ratio: 1/1.5;
+    margin: 10px;
+    background-color: #0fadad;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 15px 0px black;
+    background-image: url("https://www.transparenttextures.com/patterns/black-linen.png");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.recepie > h1 {
+    color: white;
+    font-size: 300%;
+    transform: rotate(-45deg);
+}
+
+.phone {
+    width: 10vw;
+    height: 17vw;
+    margin: 10px;
+    background-color: #dddddd;
+    border: 5px solid black;
+    border-radius: 1rem;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+.phone > p {
+    color: #ffffff;
+    background: #3fa5dc;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 1rem;
+    max-width: 90%;
+    text-align: right;
+}
+
+.recepies {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    min-height: 100vh;
+    height: fit-content;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.recepie_book {
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.recepies_name {
+    background-size: 100%;
+    width: 70px;
+    height: 70px;
+}
+
+.recepie_book > p {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 20vw;
+    background-size: 100%;
+    width: 60px;
+    height: 60px;
+    background-color: #6671753c;
+    padding: 2px 10px;
+    border-radius: 1rem;
+    margin: 1px;
+    min-width: fit-content;
+}
+
+.recepies > hr {
+    width: 90vw;
+}
+.recepie_back {
+    padding: 5px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.rice_and_kelp {
+    background-image: url('/static/img/rice_and_kelp.png');
+}
+
+.rice_and_fish {
+    background-image: url('/static/img/rice_and_fish.png');
+}
+
+.rice_and_caviar {
+    background-image: url('/static/img/rice_and_caviar.png');
+}
+
+.rice_and_bamboo_and_kelp {
+    background-image: url('/static/img/rice_and_bamboo_and_kelp.png');
+}
+
+.rice_and_fish_and_kelp {
+    background-image: url('/static/img/rice_and_fish_and_kelp.png');
+}
+
+.rice_and_caviar_and_kelp {
+    background-image: url('/static/img/rice_and_caviar_and_kelp.png');
+}
+
+.double_rice_and_kelp {
+    background-image: url('/static/img/double_rice_and_kelp.png');
+}
+
+.rice_pile {
+    background-image: url('/static/img/rice_pile.png');
+}
+
+.kelp_pile {
+    background-image: url('/static/img/kelp_pile.png');
+}
+
+.caviar_pile {
+    background-image: url('/static/img/caviar_pile.png');
+}
+
+.fish_pile {
+    background-image: url('/static/img/fish_pile.png');
+}
+
+.bamboo_pile {
+    background-image: url('/static/img/bamboo_pile.png');
+}
+
+.shop hr {
+ width: 90vw;
+ margin: 20px 0px;
+}
+
+.shop {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop > h1 {
+    display: flex;
+    margin: 10px;
+}
+
+.shop > h1 > p {
+    margin: 0px 5px;
+}
+
+.shop > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop img {
+    width: 70px;
+    height: 70px;
+}
+
+.shop_customers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop_customers > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop_customers > div > h1 {
+    text-align: center;
+    margin: 10px;
+}
+
+.shop > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+}
+
+.shop > div > div > * {
+    margin: 0px 10px;
+}
+
+.continue {
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.continue > button {
+    margin: 50px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.lost {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: white;
+    top: 0px;
+    left: 0px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.lost > h1 {
+    display: flex;
+    margin: 10px;
+}
+
+.lost > h1 > p {
+    margin: 0px 5px;
+}
+
+.lost > a {
+    font-size: 2rem;
+    color: black;
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+    .customer {
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        position: relative;
+    }
+    .demand {
+        position: absolute;
+        bottom: 50px;
+
+    }
+    .table {
+        flex-direction: column;
+    }
+    .right {
+        display: flex;
+        height: fit-content;
+        width: 100vw;
+        justify-content: space-around;
+    }
+    .left {
+        display: flex;
+        width: 100vw;
+    }
+    .ingredients, .preparation {
+        width: 45vw;
+    }
+    .knife {
+        width: 10vw;
+        aspect-ratio: 3/1;
+    }
+    .recepie {
+        width: 20vw;
+        aspect-ratio: 1.5/1;
+    }
+    .phone {
+        width: 20vw;
+        height: 30vw;
+    }
+  }
+
+.visible {
+    display: flex;
+}
