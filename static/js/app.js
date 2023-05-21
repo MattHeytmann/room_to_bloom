@@ -1,16 +1,92 @@
+const questions = () => {
+    const questions = []
+
+    document.querySelectorAll(`.question`).forEach(que => {
+        const question = que.classList[1].replaceAll('%/%', ' ')
+        const question_id  = que.textContent
+        let answers = Array.from(document.querySelectorAll('.answer')).filter(ans => {
+            return ans.textContent == question_id
+        })[0].classList[1].replaceAll('%///%', ' ').split('%/%')
+        answers.shift()
+
+
+        const just_answers = answers.filter(ans => {
+            return ans != 'WRONG' && ans != 'CORRECT' ? true : false
+        })
+
+        const processInput = (inputArray) => {
+            const outputObject = {
+              wrong: [],
+              correct: []
+            };
+          
+            inputArray.forEach((item, index) => {
+                if (item.toLowerCase() === 'wrong') {
+                    outputObject.wrong.push(index / 2);
+                } else if (item.toLowerCase() === 'correct') {
+                    outputObject.correct.push(index / 2);
+                }
+            });
+          
+            return outputObject;
+        }
+
+        answers = processInput(answers)
+
+        const order = Array.from({ length: 4 }, (_, i) => i + 1)
+
+        for (let i = order.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [order[i], order[j]] = [order[j], order[i]];
+        }
+
+        document.querySelector(`.question_list`).insertAdjacentHTML('afterbegin', `
+        <div class="new_question">
+            <h1>${question}</h1>
+            <div class="new_question_grid"></div>
+        </div>
+        `)
+
+        order.forEach(element => {
+            document.querySelector('.new_question_grid').insertAdjacentHTML('beforeend', `
+            <p class="${answers.correct.includes(element - 1) ? 'correct' : 'wrong'}">${just_answers[element - 1]}</p>
+            `)
+        })
+
+    })
+
+    document.querySelectorAll('.wrong').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelector(`.questions`).classList.remove('visible')
+            btn.parentNode.parentNode.classList.remove(`visible`)
+        })
+    })
+}
+
+questions()
+
 const recepie_book = {
-    'rice_and_kelp' : [[1, 2], 10],
-    'rice_and_fish' : [[1, 3], 20],
-    'rice_and_caviar' : [[1, 6], 25],
-    'rice_and_bamboo' : [[1, 4], 25],
-    'rice_and_bamboo_and_kelp' : [[1, 2, 4], 25],
+    'rice_and_fish' : [[1, 3], 10],
+    'rice_and_bamboo' : [[1, 4], 20],
+    'rice_and_vegetable' : [[1, 5], 30],
+    'rice_and_caviar' : [[1, 6], 40],
+    'rice_and_meat' : [[1, 7], 50],
+    'rice_and_crab' : [[1, 8], 60],
+    'rice_and_catfish' : [[1, 9], 70],
+    'rice_and_kelp' : [[1, 2], 20],
     'rice_and_fish_and_kelp' : [[1, 2, 3], 30],
-    'rice_and_caviar_and_kelp' : [[1, 2, 6], 40],
-    'double_rice_and_kelp' : [[1, 1, 2], 15],
-    '__vegetable' : [[5], 15],
-    '__meat' : [[7], 15],
-    '__crab' : [[8], 15],
-    '__catfish' : [[9], 15],
+    'rice_and_bamboo_and_kelp' : [[1, 2, 4], 40],
+    'rice_and_vegetable_and_kelp' : [[1, 2, 5], 50],
+    'rice_and_caviar_and_kelp' : [[1, 2, 6], 60],
+    'rice_and_meat_and_kelp' : [[1, 2, 7], 70],
+    'rice_and_crab_and_kelp' : [[1, 2, 8], 80],
+    'rice_and_catfish_and_kelp' : [[1, 2, 9], 90],
+    'double_rice_and_kelp' : [[1, 1, 2], 25],
+    'rice_and_rice_and_bamboo_and_vegetable_kelp_and_kelp' : [[1, 1, 2, 2, 4, 5], 60],
+    'caviar_and_caviar_and_caviar_and_catfish' : [[6, 6, 6, 9], 100],
+    'rice_and_kelp_and_fish_and_rab_and_meat' : [[1, 2, 3, 7, 8], 200],
+    'kelp_and_fish_and_bamboo_and_vegetable_and_caviar' : [[2, 4, 3, 5, 6], 150],
+    
 }
 
 const image_numbers = [
@@ -29,18 +105,18 @@ const upgrade = {
     'rice' : 5,
     'kelp' : 20,
     'fish' : 20,
-    'bamboo' : 100,
-    'vegetable' : 200,
-    'caviar' : 500,
-    'meat' : 1000,
-    'crab' : 2000,
-    'catfish' : 5000,
+    'bamboo' : 500,
+    'vegetable' : 3000,
+    'caviar' : 8000,
+    'meat' : 15000,
+    'crab' : 50000,
+    'catfish' : 100000,
 }
 
 const difficulty_table = [
-    [5, 3000],
-    [7, 3000],
-    [10, 3000],
+    [5, 10000],
+    [7, 10000],
+    [10, 9000],
     [15, 8000],
     [15, 8000],
     [15, 7500],
@@ -85,20 +161,20 @@ const difficulty_table = [
 let learned_ingredients = [
     'rice',
     'kelp',
-    // 'fish',
-    // 'bamboo',
-    // 'vegetable',
-    // 'caviar',
-    // 'meat',
-    // 'crab',
-    // 'catfish',
+    'fish',
+    'bamboo',
+    'vegetable',
+    'caviar',
+    'meat',
+    'crab',
+    'catfish',
 ]
 const findRecipesByIngredient = (ingredient, recepie_book) => {
     const ingredientRecipes = [];
   
     for (let recipe in recepie_book) {
       const requiredIngredients = recepie_book[recipe][0];
-      if (requiredIngredients.includes(learned_ingredients.indexOf(ingredient) + 1)) {
+      if (requiredIngredients.includes(image_numbers.indexOf(ingredient) + 1)) {
         ingredientRecipes.push(recipe);
       }
     }
@@ -112,9 +188,8 @@ const findAvailableRecipes = (ingredients) => {
     for (let recipe in recepie_book) {
       const requiredIngredients = recepie_book[recipe][0];
       const canMakeRecipe = requiredIngredients.every(ingredient =>
-        ingredients.includes(learned_ingredients[ingredient - 1])
+        ingredients.includes(image_numbers[ingredient - 1])
       );
-  
       if (canMakeRecipe) {
         availableRecipes.push(recipe);
       }
@@ -123,8 +198,8 @@ const findAvailableRecipes = (ingredients) => {
     return availableRecipes;
 }
 
-let day = 1
-let money = 100000
+let day = 6
+let money = 1000000000000000
 let happiness = 0
 let unhappiness = 0
 
@@ -211,6 +286,17 @@ const add_human = (food_arr) => {
     }
 }
 
+const display_random_question = () => {
+    const questions = document.querySelectorAll('.new_question');
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    
+    const allQuestions = document.querySelector('.questions');
+    allQuestions.classList.add('visible');
+    
+    const randomQuestion = questions[randomIndex];
+    randomQuestion.classList.add('visible');
+  };
+
 const game_events = () => {
     document.querySelectorAll(`.ingredient`).forEach((ingredient_element) => {
         const ingredient_content = ingredient_element.childNodes[0].textContent
@@ -229,6 +315,10 @@ const game_events = () => {
         })
     })
 
+    document.querySelector(`.recepie_back`).addEventListener('click', () => {
+        document.querySelector(`.recepies`).classList.remove('visible')
+    })
+
     if (day === 1) {
         document.querySelector(`.knife`).addEventListener('click', () => {
             const parent_element = document.querySelector(`.preparation`)
@@ -243,35 +333,41 @@ const game_events = () => {
             document.querySelector(`.recepies`).classList.add('visible')
         })
 
-        document.querySelector(`.recepie_back`).addEventListener('click', () => {
-            document.querySelector(`.recepies`).classList.remove('visible')
-        })
         
         document.querySelector(`.phone`).addEventListener('click', () => {
-            let i = 0
-            document.querySelectorAll(`.ingredient_amount`).forEach((ingredient_amount) => {
-                if(ingredient_amount.textContent !== "") {
-                    if (i == 0) {
-                        ingredient_amount.textContent = Number(ingredient_amount.textContent) + 2
-                    } else {
-                        ingredient_amount.textContent = Number(ingredient_amount.textContent) + 1
-                    }
-                }
-                i++
-            })
+            if (money >= day * 10) {
+                money -= day * 10
+                change_money(money)
+                display_random_question()
+            }
         })
 
         document.querySelector(`.play`).addEventListener(`click`, () => {
             document.querySelector(`.shop`).classList.remove('visible')
-            console.log(day);
             day++
-            console.log(day, unhappiness, happiness);
             unhappiness = 0
             happiness = 0
             change_happiness(happiness)
             change_unhappiness(unhappiness)
             can_go = true
-            console.log(day, unhappiness, happiness);
+        })
+
+        document.querySelectorAll('.correct').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector(`.questions`).classList.remove('visible')
+                btn.parentNode.parentNode.classList.remove(`visible`)
+                let i = 0
+                document.querySelectorAll(`.ingredient_amount`).forEach((ingredient_amount) => {
+                    if(ingredient_amount.textContent !== "") {
+                        if (i == 0) {
+                            ingredient_amount.textContent = Number(ingredient_amount.textContent) + 2
+                        } else {
+                            ingredient_amount.textContent = Number(ingredient_amount.textContent) + 1
+                        }
+                    }
+                    i++
+                })
+            })
         })
     }
 }
@@ -282,31 +378,31 @@ const load_shop = () => {
         <h1>SHOP</h1>
         <h1 class="money_count">0$</h1>
         <div class="shop_part">
-            <img src='/static/img/rice_pile.png'> <h1>Rice</h1> <button class="rice_btn shop_btn">${learned_ingredients.includes('rice') ? `Upgrade ${upgrade.rice}$` : 'Buy 5$'}</button>
+            <img src='/static/img/rice_pile.png'> <h1>Rice</h1> <button class="rice_btn shop_btn">${learned_ingredients.includes('rice') ? `Upgrade ${upgrade.rice}$` : `Buy ${upgrade.rice}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/kelp_pile.png'> <h1>kelp</h1> <button class="kelp_btn shop_btn">${learned_ingredients.includes('kelp') ? `Upgrade ${upgrade.kelp}$` : 'Buy 10$'}</button>
+            <img src='/static/img/kelp_pile.png'> <h1>kelp</h1> <button class="kelp_btn shop_btn">${learned_ingredients.includes('kelp') ? `Upgrade ${upgrade.kelp}$` : `Buy ${upgrade.kelp}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/fish_pile.png'> <h1>fish</h1> <button class="fish_btn shop_btn">${learned_ingredients.includes('fish') ? `Upgrade ${upgrade.fish}$` : 'Buy 20$'}</button>
+            <img src='/static/img/fish_pile.png'> <h1>fish</h1> <button class="fish_btn shop_btn">${learned_ingredients.includes('fish') ? `Upgrade ${upgrade.fish}$` : `Buy ${upgrade.fish}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/bamboo_pile.png'> <h1>bamboo</h1> <button class="bamboo_btn shop_btn">${learned_ingredients.includes('bamboo') ? `Upgrade ${upgrade.bamboo}$` : 'Buy 100$'}</button>
+            <img src='/static/img/bamboo_pile.png'> <h1>bamboo</h1> <button class="bamboo_btn shop_btn">${learned_ingredients.includes('bamboo') ? `Upgrade ${upgrade.bamboo}$` : `Buy ${upgrade.bamboo}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/vegetable_pile.jpg'> <h1>vegetable</h1> <button class="vegetable_btn shop_btn">${learned_ingredients.includes('vegetable') ? `Upgrade ${upgrade.vegetable}$` : 'Buy 200$'}</button>
+            <img src='/static/img/vegetable_pile.png'> <h1>vegetable</h1> <button class="vegetable_btn shop_btn">${learned_ingredients.includes('vegetable') ? `Upgrade ${upgrade.vegetable}$` : `Buy ${upgrade.vegetable}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/caviar_pile.png'> <h1>caviar</h1> <button class="caviar_btn shop_btn">${learned_ingredients.includes('caviar') ? `Upgrade ${upgrade.caviar}$` : 'Buy 500$'}</button>
+            <img src='/static/img/caviar_pile.png'> <h1>caviar</h1> <button class="caviar_btn shop_btn">${learned_ingredients.includes('caviar') ? `Upgrade ${upgrade.caviar}$` : `Buy ${upgrade.caviar}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/meat_pile.jpg'> <h1>meat</h1> <button class="meat_btn shop_btn">${learned_ingredients.includes('meat') ? `Upgrade ${upgrade.meat}$` : 'Buy 1000$'}</button>
+            <img src='/static/img/meat_pile.png'> <h1>meat</h1> <button class="meat_btn shop_btn">${learned_ingredients.includes('meat') ? `Upgrade ${upgrade.meat}$` : `Buy ${upgrade.meat}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/crab_pile.jpg'> <h1>crab</h1> <button class="crab_btn shop_btn">${learned_ingredients.includes('crab') ? `Upgrade ${upgrade.crab}$` : 'Buy 2000$'}</button>
+            <img src='/static/img/crab_pile.png'> <h1>crab</h1> <button class="crab_btn shop_btn">${learned_ingredients.includes('crab') ? `Upgrade ${upgrade.crab}$` : `Buy ${upgrade.crab}$`}</button>
         </div>
         <div class="shop_part">
-            <img src='/static/img/catfish_pile.jpg'> <h1>catfish</h1> <button class="catfish_btn shop_btn">${learned_ingredients.includes('catfish') ? `Upgrade ${upgrade.catfish}$` : 'Buy 5000$'}</button>
+            <img src='/static/img/catfish_pile.png'> <h1>catfish</h1> <button class="catfish_btn shop_btn">${learned_ingredients.includes('catfish') ? `Upgrade ${upgrade.catfish}$` : `Buy ${upgrade.catfish}$`}</button>
         </div>
         <hr>
     `)
@@ -316,17 +412,14 @@ const load_shop = () => {
             const buy = btn.textContent.includes('Buy') ? true : false
             const food_type = btn.classList[0].replace('_btn', '')
             const value = upgrade[food_type]
-            console.log(buy, value, food_type, btn);
 
             if (buy && money >= value) {
-                console.log('buy');
                 learned_ingredients.push(food_type)
                 upgrade[food_type] += upgrade[food_type]
                 money -= value
                 change_money(money)
                 document.querySelector(`.${food_type}_btn`).textContent = `Upgrade ${upgrade[food_type]}$`
             } else if (money >= value){
-                console.log('upgrade');
                 findRecipesByIngredient(food_type, recepie_book).forEach(recepie => {
                     recepie_book[recepie][1] += value
                 })
@@ -334,13 +427,14 @@ const load_shop = () => {
                 money -= value
                 change_money(money)
                 document.querySelector(`.${food_type}_btn`).textContent = `Upgrade ${upgrade[food_type]}$`
+            } else {
+                console.log('not ano');
             }
         })
     })
 }
 
 const end_round = () => {
-    console.log('end_round');
     if (unhappiness >= 3) {
         document.querySelector(`.lost`).classList.add('visible')
     }
@@ -352,17 +446,16 @@ const end_round = () => {
 
 const round = (learned_ingredients) => {
     can_go = false
-    console.log('available', findAvailableRecipes(learned_ingredients));
     document.querySelector(`.ingredients`).insertAdjacentHTML('beforeend', `
-        <div class="ingredient ing1"><img src="${learned_ingredients.includes('rice') ? '/static/img/rice.jpg' : '/staticimg/empty.jpg'}"><p class="ingredient_amount">2</p></div>
-        <div class="ingredient ing2"><img src="${learned_ingredients.includes('kelp') ? '/static/img/kelp.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('kelp') ? '1' : ''}</p></div>
-        <div class="ingredient ing3"><img src="${learned_ingredients.includes('fish') ? '/static/img/fish.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('fish') ? '1' : ''}</p></div>
-        <div class="ingredient ing4"><img src="${learned_ingredients.includes('bamboo') ? '/static/img/bamboo.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('bamboo') ? '1' : ''}</p></div>
-        <div class="ingredient ing5"><img src="${learned_ingredients.includes('vegetable') ? '/static/img/vegetable.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('vegetable') ? '1' : ''}</p></div>
-        <div class="ingredient ing6"><img src="${learned_ingredients.includes('caviar') ? '/static/img/caviar.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('caviar') ? '1' : ''}</p></div>
-        <div class="ingredient ing7"><img src="${learned_ingredients.includes('meat') ? '/static/img/meat.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('meat') ? '1' : ''}</p></div>
-        <div class="ingredient ing8"><img src="${learned_ingredients.includes('crab') ? '/static/img/crab.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('crab') ? '1' : ''}</p></div>
-        <div class="ingredient ing9"><img src="${learned_ingredients.includes('catfish') ? '/static/img/catfish.jpg' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('catfish') ? '1' : ''}</p></div>
+        <div class="ingredient ing1"><img src="${learned_ingredients.includes('rice') ? '/static/img/rice.png' : '/staticimg/empty.jpg'}"><p class="ingredient_amount">2</p></div>
+        <div class="ingredient ing2"><img src="${learned_ingredients.includes('kelp') ? '/static/img/kelp.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('kelp') ? '1' : ''}</p></div>
+        <div class="ingredient ing3"><img src="${learned_ingredients.includes('fish') ? '/static/img/fish.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('fish') ? '1' : ''}</p></div>
+        <div class="ingredient ing4"><img src="${learned_ingredients.includes('bamboo') ? '/static/img/bamboo.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('bamboo') ? '1' : ''}</p></div>
+        <div class="ingredient ing5"><img src="${learned_ingredients.includes('vegetable') ? '/static/img/vegetable.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('vegetable') ? '1' : ''}</p></div>
+        <div class="ingredient ing6"><img src="${learned_ingredients.includes('caviar') ? '/static/img/caviar.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('caviar') ? '1' : ''}</p></div>
+        <div class="ingredient ing7"><img src="${learned_ingredients.includes('meat') ? '/static/img/meat.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('meat') ? '1' : ''}</p></div>
+        <div class="ingredient ing8"><img src="${learned_ingredients.includes('crab') ? '/static/img/crab.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('crab') ? '1' : ''}</p></div>
+        <div class="ingredient ing9"><img src="${learned_ingredients.includes('catfish') ? '/static/img/catfish.png' : '/static/img/empty.jpg'}"><p class="ingredient_amount">${learned_ingredients.includes('catfish') ? '1' : ''}</p></div>
     `)
 
     const recepies =  findAvailableRecipes(learned_ingredients)

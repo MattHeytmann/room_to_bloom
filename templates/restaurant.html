@@ -1,0 +1,131 @@
+{% extends "index.html" %}
+{% load replace %}
+
+{% load static %}
+
+{% block title %}restaurant game{% endblock title %}
+
+{% block content %}
+
+<main>
+    <div class="top_menu">
+        <div class="top_menu_info">
+            <div class="day">
+                <h1>Day:</h1>
+                <p class="day_count"> 1 </p>
+            </div>
+            <div class="money">
+                <p class="money_count">0$</p>
+            </div>
+        </div>
+        <div class="top_menu_happiness">
+            <div class="happy">
+                <h1>😃</h1>
+                <p class="happy_count">0</p>
+            </div>
+            <div class="unhappy">
+                <h1>😕</h1>
+                <p class="unhappy_count">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="restaurant">
+        <div class="plants">
+            <div class="plant"></div>
+            <div class="plant"></div>
+        </div>
+        <div class="plants">
+            <div class="pot"></div>
+            <div class="pot"></div>
+        </div>
+        <div class="customers">
+            
+        </div>
+    </div>
+    <div class="table">
+        <div class="left">
+            <div class="ingredients">
+            </div>
+            <div class="preparation">
+            </div>
+        </div>
+        <div class="right">
+            <div class="knife"></div>
+            <div class="recepie">
+            </div>
+            <div class="phone"></div>
+        </div>
+    </div>
+    <div class="shop">
+        <h1>End of the day! <p class="day_count"> 1 </p> </h1>
+        <hr>
+        <h2>your cusomers were:</h2>
+        <div class="shop_customers">
+            <div class="shop_left">
+                <h1>😃 Happy</h1>
+                <h1 class="happy_count">0</h1>
+            </div>
+            <div class="shop_left">
+                <h1>😕 Sad</h1>
+                <h1 class="unhappy_count">0</h1>
+            </div>
+            <hr>
+        </div>
+        <div class="shop_shop">
+            
+        </div>
+        <div class="continue">
+            <button class="play">Next Day</button>
+        </div>
+    </div>
+    <div class="lost">
+        <h1>You lost!</h1>
+        <h1>Day <p class="day_count"> 1 </p> </h1>
+        <div class="shop_customers">
+            <div class="shop_left">
+                <h1>😃 Happy</h1>
+                <h1 class="happy_count">0</h1>
+            </div>
+            <div class="shop_left">
+                <h1>😕 Sad</h1>
+                <h1 class="unhappy_count">0</h1>
+            </div>
+            <hr>
+        </div>
+        <a href="{% url 'restaurant' %}">Play again</a>
+    </div>
+    <div class="questions">
+        <div class="top_menu question_menu">
+            <div class="top_menu_info">
+                <div class="day">
+                    <h1>Day:</h1>
+                    <p class="day_count"> 1 </p>
+                </div>
+                <div class="money">
+                    <p class="money_count">0$</p>
+                </div>
+            </div>
+            <div class="top_menu_happiness">
+                <div class="happy">
+                    <h1>😃</h1>
+                    <p class="happy_count">0</p>
+                </div>
+                <div class="unhappy">
+                    <h1>😕</h1>
+                    <p class="unhappy_count">0</p>
+                </div>
+            </div>
+        </div>
+        {% for question in questions %}
+            <h1 class="question {{ question }}" style="display: none;">{{ question.subject_id }}</h1>
+            <p class="answer {{question.answer}}" style="display: none;">{{question.subject_id}}</p>
+            <div class="question_list">
+
+            </div>
+        {% endfor %}
+        <div class="top_menu question_menu_bottom">
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

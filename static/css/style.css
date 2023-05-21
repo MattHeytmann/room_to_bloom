@@ -6,6 +6,7 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Archivo', sans-serif;
 }
 
 body {
@@ -16,23 +17,23 @@ body {
     width: 100vw;
     height: 60px;
     box-shadow: inset 0px 0px 10px 0px #000000, 0px 0px 30px 0px #000000;
-    background-color: #696760;
-    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    background-color: #147800;
+    background-image: url("https://www.transparenttextures.com/patterns/gravel.png");
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     position: absolute;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 999;
 }
 
 .top_menu > div {
     width: fit-content;
     padding: 5px;
-    max-width: 300px;
     height: 50px;
-    box-shadow: inset 0px 0px 10px 0px #000000, 0px 0px 30px 0px #000000;
-    background-color: #41403c;
-    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+    box-shadow: inset 0px 0px 10px 0px #00000085, 0px 0px 30px 0px #00000072;
+    background-color: #000000;
+    background-image: url("https://www.transparenttextures.com/patterns/retina-wood.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     display: flex;
     justify-content: space-around;
@@ -43,9 +44,9 @@ body {
     height: 90%;
     width: fit-content;
     padding: 5px;
-    box-shadow: inset 0px 0px 10px 0px #000000, 0px 0px 30px 0px #000000;
-    background-color: #696760;
-    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+    box-shadow: inset 0px 0px 10px 0px #00000080, 0px 0px 30px 0px #00000080;
+    background-color: #000000;
+    background-image: url("https://www.transparenttextures.com/patterns/retina-wood.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     display: flex;
     align-items: center;
@@ -66,8 +67,8 @@ body {
 }
 
 .table {
-    background-color: #c88233;
-    background-image: url("https://www.transparenttextures.com/patterns/dark-wood.png");
+    background-color: #000000;
+    background-image: url("https://www.transparenttextures.com/patterns/retina-wood.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     display: flex;
     align-items: center;
@@ -80,18 +81,13 @@ body {
     align-items: center;
     justify-content: end;
     box-shadow: inset 0px 0px 50px 0px #000000;
-    background-color: #d6d2ba;
-    background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
+    background-color: #741f1f;
+    background-image: url("https://www.transparenttextures.com/patterns/flowers.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
-.desk {
-    width: 100vw;
-    height: 50px;
-    box-shadow: inset 0px 0px 20px 0px #000000;
-    background-color: #ffaa00;
-    background-image: url("https://www.transparenttextures.com/patterns/dark-wood.png");
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+.lost, .shop {
+    z-index: 999;
 }
 
 .customers {
@@ -100,12 +96,12 @@ body {
     display: flex;
     align-items: end;
     padding: 0px 10px;
+    z-index: 1;
 }
 
 .customer {
     width: calc((100vw - 20px) / 5);
     height: 25vh;
-    background-color: rgba(192, 255, 255, 0.291);
     display: flex;
     align-items: end;
 }
@@ -114,7 +110,10 @@ body {
     width: 50%;
     max-height: 20vh;
     aspect-ratio: 1/2;
-    background-color: blanchedalmond;
+    background-image: url('/static/img/human.PNG');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: bottom;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 }
@@ -174,19 +173,19 @@ body {
     background-image: url('/static/img/bamboo_pile.png');
 }
 .ingredient5 {
-    background-image: url('/static/img/vegetable_pile.jpg');
+    background-image: url('/static/img/vegetable_pile.png');
 }
 .ingredient6 {
     background-image: url('/static/img/caviar_pile.png');
 }
 .ingredient7 {
-    background-image: url('/static/img/meat_pile.jpg');
+    background-image: url('/static/img/meat_pile.png');
 }
 .ingredient8 {
-    background-image: url('/static/img/crab_pile.jpg');
+    background-image: url('/static/img/crab_pile.png');
 }
 .ingredient9 {
-    background-image: url('/static/img/catfish_pile.jpg');
+    background-image: url('/static/img/catfish_pile.png');
 }
 
 .ing1 {
@@ -237,6 +236,7 @@ body {
     "ing1 ing2 ing3"
     "ing4 ing5 ing6"
     "ing7 ing8 ing9";
+    box-shadow: 0px 0px 26px 1px #000000;
 }
 
 .curent_ingredient {
@@ -308,7 +308,7 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     max-width: 200px;
     aspect-ratio: 1/3;
     background-image: url('/static/img/knife.png');
-    background-size: 100% 100%;
+    background-size: 100% auto;
     margin: 10px;
 }
 
@@ -317,42 +317,20 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     max-width: 300px;
     aspect-ratio: 1/1.5;
     margin: 10px;
-    background-color: #0fadad;
     border-radius: 1rem;
-    box-shadow: 0px 0px 15px 0px black;
-    background-image: url("https://www.transparenttextures.com/patterns/black-linen.png");
-    display: flex;
-    align-items: center;
-    justify-content: center;
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-}
-
-.recepie > h1 {
-    color: white;
-    font-size: 300%;
-    transform: rotate(-45deg);
+    background-image: url("/static/img/book.PNG");
+    background-size: auto 100%;
+    background-position: 50% 50%;
 }
 
 .phone {
     width: 10vw;
     height: 17vw;
     margin: 10px;
-    background-color: #dddddd;
-    border: 5px solid black;
-    border-radius: 1rem;
-    display: flex;
-    align-items: end;
-    justify-content: end;
-}
-
-.phone > p {
-    color: #ffffff;
-    background: #3fa5dc;
-    padding: 5px;
-    margin: 2px;
-    border-radius: 1rem;
-    max-width: 90%;
-    text-align: right;
+    background: #00000000;
+    background-image: url('/static/img/phone.PNG');
+    background-size: auto 100%;
+    background-position: 50% 50%;
 }
 
 .recepies {
@@ -367,6 +345,7 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     flex-direction: column;
     align-items: center;
     display: none;
+    z-index: 999;
 }
 
 .recepie_book {
@@ -407,32 +386,84 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     text-decoration: underline;
 }
 
-.rice_and_kelp {
-    background-image: url('/static/img/rice_and_kelp.png');
-}
-
 .rice_and_fish {
     background-image: url('/static/img/rice_and_fish.png');
 }
 
-.rice_and_caviar {
+ .rice_and_bamboo {
+    background-image: url('/static/img/rice_and_bamboo.png');
+}
+
+ .rice_and_vegetable {
+    background-image: url('/static/img/rice_and_vegetable.png');
+}
+
+ .rice_and_caviar {
     background-image: url('/static/img/rice_and_caviar.png');
 }
 
-.rice_and_bamboo_and_kelp {
-    background-image: url('/static/img/rice_and_bamboo_and_kelp.png');
+ .rice_and_meat {
+    background-image: url('/static/img/rice_and_meat.png');
 }
 
-.rice_and_fish_and_kelp {
+ .rice_and_crab {
+    background-image: url('/static/img/rice_and_crab.png');
+}
+
+ .rice_and_catfish {
+    background-image: url('/static/img/rice_and_catfish.png');
+}
+
+ .rice_and_kelp {
+    background-image: url('/static/img/rice_and_kelp.png');
+}
+
+ .rice_and_fish_and_kelp {
     background-image: url('/static/img/rice_and_fish_and_kelp.png');
 }
 
-.rice_and_caviar_and_kelp {
+ .rice_and_bamboo_and_kelp {
+    background-image: url('/static/img/rice_and_bamboo_and_kelp.png');
+}
+
+ .rice_and_vegetable_and_kelp {
+    background-image: url('/static/img/rice_and_vegetable_and_kelp.png');
+}
+
+ .rice_and_caviar_and_kelp {
     background-image: url('/static/img/rice_and_caviar_and_kelp.png');
 }
 
-.double_rice_and_kelp {
+ .rice_and_meat_and_kelp {
+    background-image: url('/static/img/rice_and_meat_and_kelp.png');
+}
+
+ .rice_and_crab_and_kelp {
+    background-image: url('/static/img/rice_and_crab_and_kelp.png');
+}
+
+ .rice_and_catfish_and_kelp {
+    background-image: url('/static/img/rice_and_catfish_and_kelp.png');
+}
+
+ .double_rice_and_kelp {
     background-image: url('/static/img/double_rice_and_kelp.png');
+}
+
+ .rice_and_rice_and_bamboo_and_vegetable_kelp_and_kelp {
+    background-image: url('/static/img/rice_and_rice_and_bamboo_and_vegetable_kelp_and_kelp.png');
+}
+
+ .caviar_and_caviar_and_caviar_and_catfish {
+    background-image: url('/static/img/caviar_and_caviar_and_caviar_and_catfish.png');
+}
+
+ .rice_and_kelp_and_fish_and_rab_and_meat {
+    background-image: url('/static/img/rice_and_kelp_and_fish_and_rab_and_meat.png');
+}
+
+ .kelp_and_fish_and_bamboo_and_vegetable_and_caviar {
+    background-image: url('/static/img/kelp_and_fish_and_bamboo_and_vegetable_and_caviar.png');
 }
 
 .rice_pile {
@@ -451,8 +482,24 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     background-image: url('/static/img/fish_pile.png');
 }
 
+.meat_pile {
+    background-image: url('/static/img/meat_pile.png');
+}
+
 .bamboo_pile {
     background-image: url('/static/img/bamboo_pile.png');
+}
+
+.crab_pile {
+    background-image: url('/static/img/crab_pile.png');
+}
+
+.vegetable_pile {
+    background-image: url('/static/img/vegetable_pile.png');
+}
+
+.catfish_pile {
+    background-image: url('/static/img/catfish_pile.png');
 }
 
 .shop hr {
@@ -471,6 +518,18 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     display: none;
     flex-direction: column;
     align-items: center;
+}
+
+.shop_btn {
+    background: none;
+    padding: 10px;
+    border-radius: 1rem;
+    transition: all 0.2s;
+}
+
+.shop_btn:active {
+    background: #147800;
+    color: white;
 }
 
 .shop > h1 {
@@ -562,6 +621,109 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     text-decoration: underline;
 }
 
+.plants {
+    width: 100vw;
+    height: 50vh;
+    position: absolute;
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    z-index: 0;
+}
+
+.plant {
+    width: 20vw;
+    height: 30vh;
+    background-color: #147800;
+    background-image: url("https://www.transparenttextures.com/patterns/gravel.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    box-shadow: inset 0px 0px 26px 1px #000000bf;
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+}
+
+.pot {
+    width: 22vw;
+    height: 2vh;
+    background-color: #a45806;
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    box-shadow: inset 0px 0px 26px 1px #000000;
+    border-top-left-radius: 10%;
+    border-top-right-radius: 10%;
+}
+
+.questions {
+    z-index: 998;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0px 0px 26px 1px #000000;
+}
+
+.new_question {
+    display: none;
+    flex-direction: column;
+    width: 80vw;
+    height: 80vh;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.new_question_grid {
+    width: 80vw;
+    height: 50vw;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
+    gap: 0px;
+}
+
+.new_question_grid > p {
+    background-color: gray;
+    width: 30vw;
+    height: 10vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+    border-radius: 1rem;
+}
+
+.question_menu {
+    position: absolute;
+    top: 0px;
+}
+
+.question_menu{
+    box-shadow: none;
+}
+
+.question_menu_bottom {
+    position: absolute;
+    bottom: 0px;
+}
+
+@media only screen and (max-width: 700px) {
+    .recepie_book {
+        width: 80vw;
+    }
+
+    .recepie_book > p {
+        width: 40px;
+        height: 40px;
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .customer {
         flex-direction: column;
@@ -572,6 +734,7 @@ background-image: url("https://www.transparenttextures.com/patterns/black-linen.
     .demand {
         position: absolute;
         bottom: 50px;
+        width: 95%;
 
     }
     .table {
