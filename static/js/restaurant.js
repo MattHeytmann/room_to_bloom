@@ -1,48 +1,48 @@
-console.log(question_titles);
-console.log(correct_answers);
-console.log(wrong_answers);
+const startday = 1
+let day = startday
+let money = 0
+let happiness = 0
+let unhappiness = 0
+
+let can_go = true
 
 let order = []
 
 const questions = () => {
 
-    const titles = question_titles.map(item => item.replace(/&quot;/g, '"').slice(1, -1).split('] [').map(item => item[0] + item.slice(1)));
-    const correct = correct_answers.map(item => item.replace(/&quot;/g, '"').slice(1, -1).split('] [').map(item => item[0] + item.slice(1)));
-    const wrong = wrong_answers.map(item => item.replace(/&quot;/g, '"').slice(1, -1).split('] [').map(item => item[0] + item.slice(1)));
+    const titles = question_titles
+    const correct = correct_answers.map(item => item.slice(0, -1).replace('[', '').split('] [').map(item => item[0] + item.slice(1)));
+    const wrong = wrong_answers.map(item => item.slice(0, -1).replace('[', '').split('] [').map(item => item[0] + item.slice(1)));
 
-    console.log(titles);
-    console.log(correct);
-    console.log(wrong);
+    for (const [i, element] of Array.from(document.querySelectorAll(`.question_list`)).entries()) {
+        let content_str = ''
 
-    for (const element of Array.from(document.querySelectorAll(`.question_list`))) {
+        for (const corr of correct[i]) {
+                content_str += `<p class="${'correct'}">${corr}</p>`
+        }
+    
+        for (const corr of wrong[i]) {
+                content_str += `<p class="${'wrong'}">${corr}</p>`
+        }
         element.insertAdjacentHTML('afterbegin', `
         <div class="new_question">
-            <h1>${'otazka'}</h1>
-            <div class="new_question_grid"></div>
+            <h1>${titles[i]}</h1>
+            <div class="new_question_grid">
+                ${content_str}
+            </div>
         </div>
         `)
     }
-
-    const shuffleArray = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array
-    }
-
-    order = shuffleArray(Array.from({ length: 4 }, (_, i) => i + 1))
-
-    order.forEach(element => {
-        document.querySelector('.new_question_grid').insertAdjacentHTML('beforeend', `
-        <p class="${answers.correct.includes(element - 1) ? 'correct' : 'wrong'}">${just_answers[element - 1]}</p>
-        `)
-    })
 
     document.querySelectorAll('.wrong').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelector(`.questions`).classList.remove('visible')
             btn.parentNode.parentNode.classList.remove(`visible`)
+            unhappiness++
+            change_unhappiness(unhappiness)
+            if (unhappiness >= 3) {
+                end_round()
+            }
         })
     })
 }
@@ -146,13 +146,13 @@ const difficulty_table = [
 let learned_ingredients = [
     'rice',
     'kelp',
-    'fish',
-    'bamboo',
-    'vegetable',
-    'caviar',
-    'meat',
-    'crab',
-    'catfish',
+    // 'fish',
+    // 'bamboo',
+    // 'vegetable',
+    // 'caviar',
+    // 'meat',
+    // 'crab',
+    // 'catfish',
 ]
 const findRecipesByIngredient = (ingredient, recepie_book) => {
     const ingredientRecipes = [];
@@ -183,14 +183,6 @@ const findAvailableRecipes = (ingredients) => {
     return availableRecipes;
 }
 
-const startday = 6
-let day = startday
-let money = 1000000000000000
-let happiness = 0
-let unhappiness = 0
-
-let can_go = true
-
 const change_day = (day) => {
     document.querySelectorAll(`.day_count`).forEach(el => {
         el.textContent = day
@@ -213,6 +205,9 @@ const change_unhappiness = (points) => {
     document.querySelectorAll(`.unhappy_count`).forEach(el => {
         el.textContent = points
     })
+    if (unhappiness >= 3) {
+        end_round()
+    }
 }
 
 const add_human = (food_arr) => {
@@ -287,13 +282,22 @@ const display_random_question = () => {
         current_questions = shuffleArray(Array.from(questions))
     }
 
-    const allQuestions = document.querySelector('.questions');
-    allQuestions.classList.add('visible');
-
-    console.log(current_questions);
+    const all_questions = document.querySelector('.questions');
+    all_questions.classList.add('visible');
     
-    const randomQuestion = current_questions.pop();
-    randomQuestion.classList.add('visible');
+    const random_question = current_questions.pop();
+    random_question.classList.add('visible');
+
+    const shuffled_que = shuffleArray(Array.from(random_question.children[1].children))
+
+    random_question.children[1].innerHTML = ''
+
+    shuffled_que.forEach(que => {
+        random_question.children[1].append(que)
+    })
+
+
+
   };
 
 const game_events = () => {
@@ -426,8 +430,6 @@ const load_shop = () => {
                 money -= value
                 change_money(money)
                 document.querySelector(`.${food_type}_btn`).textContent = `Upgrade ${upgrade[food_type]}$`
-            } else {
-                console.log('not ano');
             }
         })
     })
