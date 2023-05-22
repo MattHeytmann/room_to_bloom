@@ -116,16 +116,28 @@
                 </div>
             </div>
         </div>
+        <script>
+            const question_titles = []
+            const correct_answers = []
+            const wrong_answers = []
+        </script>
         {% for question in questions %}
-            <h1 class="question {{ question }}" style="display: none;">{{ question.subject_id }}</h1>
-            <p class="answer {{question.answer}}" style="display: none;">{{question.subject_id}}</p>
+            <!-- <h1 class="question {{ question }}" style="display: none;">{{ question.subject_id }}</h1>
+            <p class="answer {{question.answer}}" style="display: none;">{{question.subject_id}}</p> -->
             <div class="question_list">
 
             </div>
+            <script>
+                question_titles.push('{{ question.title }}')
+                correct_answers.push('{{ question.correct_answer }}')
+                wrong_answers.push('{{ question.wrong_answer }}')
+            </script>
         {% endfor %}
         <div class="top_menu question_menu_bottom">
         </div>
     </div>
 </main>
+
+<script src="{% static 'js/restaurant.js' %}"></script>
 
 {% endblock content %}

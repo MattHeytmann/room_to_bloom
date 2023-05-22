@@ -1,58 +1,42 @@
+console.log(question_titles);
+console.log(correct_answers);
+console.log(wrong_answers);
+
+let order = []
+
 const questions = () => {
-    const questions = []
 
-    document.querySelectorAll(`.question`).forEach(que => {
-        const question = que.classList[1].replaceAll('%/%', ' ')
-        const question_id  = que.textContent
-        let answers = Array.from(document.querySelectorAll('.answer')).filter(ans => {
-            return ans.textContent == question_id
-        })[0].classList[1].replaceAll('%///%', ' ').split('%/%')
-        answers.shift()
+    const titles = question_titles.map(item => item.replace(/&quot;/g, '"').slice(1, -1).split('] [').map(item => item[0] + item.slice(1)));
+    const correct = correct_answers.map(item => item.replace(/&quot;/g, '"').slice(1, -1).split('] [').map(item => item[0] + item.slice(1)));
+    const wrong = wrong_answers.map(item => item.replace(/&quot;/g, '"').slice(1, -1).split('] [').map(item => item[0] + item.slice(1)));
 
+    console.log(titles);
+    console.log(correct);
+    console.log(wrong);
 
-        const just_answers = answers.filter(ans => {
-            return ans != 'WRONG' && ans != 'CORRECT' ? true : false
-        })
-
-        const processInput = (inputArray) => {
-            const outputObject = {
-              wrong: [],
-              correct: []
-            };
-          
-            inputArray.forEach((item, index) => {
-                if (item.toLowerCase() === 'wrong') {
-                    outputObject.wrong.push(index / 2);
-                } else if (item.toLowerCase() === 'correct') {
-                    outputObject.correct.push(index / 2);
-                }
-            });
-          
-            return outputObject;
-        }
-
-        answers = processInput(answers)
-
-        const order = Array.from({ length: 4 }, (_, i) => i + 1)
-
-        for (let i = order.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [order[i], order[j]] = [order[j], order[i]];
-        }
-
-        document.querySelector(`.question_list`).insertAdjacentHTML('afterbegin', `
+    for (const element of Array.from(document.querySelectorAll(`.question_list`))) {
+        element.insertAdjacentHTML('afterbegin', `
         <div class="new_question">
-            <h1>${question}</h1>
+            <h1>${'otazka'}</h1>
             <div class="new_question_grid"></div>
         </div>
         `)
+    }
 
-        order.forEach(element => {
-            document.querySelector('.new_question_grid').insertAdjacentHTML('beforeend', `
-            <p class="${answers.correct.includes(element - 1) ? 'correct' : 'wrong'}">${just_answers[element - 1]}</p>
-            `)
-        })
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array
+    }
 
+    order = shuffleArray(Array.from({ length: 4 }, (_, i) => i + 1))
+
+    order.forEach(element => {
+        document.querySelector('.new_question_grid').insertAdjacentHTML('beforeend', `
+        <p class="${answers.correct.includes(element - 1) ? 'correct' : 'wrong'}">${just_answers[element - 1]}</p>
+        `)
     })
 
     document.querySelectorAll('.wrong').forEach(btn => {
@@ -64,6 +48,7 @@ const questions = () => {
 }
 
 questions()
+let current_questions = []
 
 const recepie_book = {
     'rice_and_fish' : [[1, 3], 10],
@@ -198,7 +183,8 @@ const findAvailableRecipes = (ingredients) => {
     return availableRecipes;
 }
 
-let day = 6
+const startday = 6
+let day = startday
 let money = 1000000000000000
 let happiness = 0
 let unhappiness = 0
@@ -286,14 +272,27 @@ const add_human = (food_arr) => {
     }
 }
 
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
 const display_random_question = () => {
     const questions = document.querySelectorAll('.new_question');
-    const randomIndex = Math.floor(Math.random() * questions.length);
     
+    if(current_questions.length <= 0) {
+        current_questions = shuffleArray(Array.from(questions))
+    }
+
     const allQuestions = document.querySelector('.questions');
     allQuestions.classList.add('visible');
+
+    console.log(current_questions);
     
-    const randomQuestion = questions[randomIndex];
+    const randomQuestion = current_questions.pop();
     randomQuestion.classList.add('visible');
   };
 
@@ -319,7 +318,7 @@ const game_events = () => {
         document.querySelector(`.recepies`).classList.remove('visible')
     })
 
-    if (day === 1) {
+    if (day === startday) {
         document.querySelector(`.knife`).addEventListener('click', () => {
             const parent_element = document.querySelector(`.preparation`)
             if (parent_element.children.length > 0) {
@@ -335,8 +334,8 @@ const game_events = () => {
 
         
         document.querySelector(`.phone`).addEventListener('click', () => {
-            if (money >= day * 10) {
-                money -= day * 10
+            if (money >= day * 10 * day) {
+                money -= day * 10 * day
                 change_money(money)
                 display_random_question()
             }
